@@ -1,7 +1,8 @@
 package com.example.mvvmsample.data.network
 
-import okhttp3.ResponseBody
-import retrofit2.Call
+import com.example.mvvmsample.data.network.responses.AuthResponse
+import com.example.mvvmsample.utils.Constants
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Field
@@ -12,15 +13,15 @@ interface API {
 
     @FormUrlEncoded
     @POST("login")
-    fun userLogin(
+    suspend fun userLogin(
         @Field("email") email: String,
         @Field("password") password: String
-    ): Call<ResponseBody>
+    ): Response<AuthResponse>
 
-    companion object{
+    companion object {
         operator fun invoke(): API {
             return Retrofit.Builder()
-                .baseUrl("https://api.simplifiedcoding.in/course-apis/mvvm/login/")
+                .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(API::class.java)

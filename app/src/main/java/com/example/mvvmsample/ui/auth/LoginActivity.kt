@@ -1,17 +1,15 @@
 package com.example.mvvmsample.ui.auth
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.mvvmsample.R
+import com.example.mvvmsample.data.db.entities.User
 import com.example.mvvmsample.databinding.ActivityLoginBinding
 import com.example.mvvmsample.utils.hide
 import com.example.mvvmsample.utils.show
+import com.example.mvvmsample.utils.snackBar
 import com.example.mvvmsample.utils.toast
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -19,7 +17,8 @@ class LoginActivity : AppCompatActivity(), AuthListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: ActivityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
+        val binding: ActivityLoginBinding =
+            DataBindingUtil.setContentView(this, R.layout.activity_login)
         val viewModel = ViewModelProviders.of(this).get(AuthViewModel::class.java)
 
         binding.viewmodel = viewModel
@@ -30,11 +29,9 @@ class LoginActivity : AppCompatActivity(), AuthListener {
         progressBar.show()
     }
 
-    override fun onSuccess(loginResponse: LiveData<String>) {
-        loginResponse.observe(this, Observer {
-            progressBar.hide()
-            toast(it)
-        })
+    override fun onSuccess(user: User) {
+        progressBar.hide()
+        rootLayout.snackBar("${user.name} is Logged in")
     }
 
     override fun onFailure(message: String) {
