@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.example.mvvmsample.data.repositories.UserRepository
 import com.example.mvvmsample.utils.ApiExceptions
 import com.example.mvvmsample.utils.Coroutines
+import com.example.mvvmsample.utils.NoInternetExceptions
 
 class AuthViewModel(private val repository: UserRepository) : ViewModel() {
     var email: String? = null
@@ -31,6 +32,8 @@ class AuthViewModel(private val repository: UserRepository) : ViewModel() {
                 }
                 authListener?.onFailure(authResponse.message!!)
             } catch (e: ApiExceptions) {
+                authListener?.onFailure(e.message!!)
+            } catch (e: NoInternetExceptions) {
                 authListener?.onFailure(e.message!!)
             }
         }
