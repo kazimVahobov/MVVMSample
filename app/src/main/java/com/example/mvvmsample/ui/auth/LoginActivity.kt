@@ -21,7 +21,7 @@ import org.kodein.di.generic.instance
 class LoginActivity : AppCompatActivity(), AuthListener, KodeinAware {
 
     override val kodein by kodein()
-    private val factory: AuthViewModelFactory by instance()
+    private val factory by instance<AuthViewModelFactory>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +49,11 @@ class LoginActivity : AppCompatActivity(), AuthListener, KodeinAware {
 
     override fun onSuccess(user: User) {
         progressBar.hide()
+    }
+
+    override fun onFailure(messageId: Int) {
+        progressBar.hide()
+        rootLayout.snackBar(getString(R.string.name_is_required))
     }
 
     override fun onFailure(message: String) {

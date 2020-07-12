@@ -1,8 +1,16 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">MVVMSample</string>
     <string name="example_gmail_com">example@gmail.com</string>
     <string name="password">password</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="sign_in">Sign in</string>
     <string name="sign_up">Sign Up</string>
+    <string name="email_is_required">Email  is required</string>
+    <string name="name_is_required">Name  is required</string>
+    <string name="pwd_is_required">Password  is required</string>
+    <string name="confirm_pwd_is_required">Confirm password  is required</string>
+    <string name="pwd_mismatch">Password mismatch</string>
+    <string name="name">name</string>
+    <string name="home">Home</string>
+    <string name="users">Users</string>
 </resources>

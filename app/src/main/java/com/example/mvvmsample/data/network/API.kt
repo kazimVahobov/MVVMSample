@@ -13,10 +13,18 @@ import retrofit2.http.POST
 interface API {
 
     @FormUrlEncoded
-    @POST("login")
+    @POST(Constants.LOGIN_API)
     suspend fun userLogin(
         @Field("email") email: String,
         @Field("password") password: String
+    ): Response<AuthResponse>
+
+    @FormUrlEncoded
+    @POST(Constants.SIGN_UP_API)
+    suspend fun userSignUp(
+        @Field("email") email: String,
+        @Field("password") password: String,
+        @Field("name") name: String
     ): Response<AuthResponse>
 
     companion object {
@@ -27,7 +35,7 @@ interface API {
 
             return Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl(Constants.BASE_URL)
+                .baseUrl(Constants.BASE_API)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(API::class.java)
